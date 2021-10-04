@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Cash Five or PowerBall </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<script>
+var cfArray = new Array();
+var pbArray = new Array();
+var pbPicks = new Array();
+var cfPicks = new Array();
+
+function initArray(n,vals)
+{
+
+  for (i=0;i < n; i++)
+  {
+	vals[i] = 0;
+  }
+}
+function getCashFive(cfArray)
+{
+    var n = 5;
+    var count=0;
+    var val = 0;
+    while ( count < 5)
+    	{
+    	  val = Math.floor(Math.random()*42)+1;
+    	  if( cfArray[val] == 0)
+    		  {
+    		     cfArray[val]= 1;
+    		     cfPicks[count] = val;
+    		     count++;
+    		  }
+    	}
+}
+function getPowerBall(pbArray)
+{
+    var n = 5;
+    var count=0;
+    var val = 0;
+    while ( count < 5)
+    	{
+    	  val = Math.floor(Math.random()*59)+1;
+    	  if( pbArray[val] == 0)
+    		  {
+    		     pbArray[val]= 1;
+    		     pbPicks[count]=val;
+    		     count++;
+    		  }
+    	}
+}
+$(document).ready(function() {
+       $('#button').click(function()
+		  {
+		   var val;
+    	   initArray(43, cfArray);
+    	   initArray(59, pbArray);
+    	   getPowerBall(pbArray);
+    	   pbPicks.sort(function(a,b){return a - b});
+    	   val = Math.floor(Math.random()*34)+1;
+    	   getCashFive(cfArray);
+    	   cfPicks.sort(function(a,b){return a - b});
+   		    $('#cashFive').val(cfPicks[0]+"-"+cfPicks[1]+"-"+
+ 			   cfPicks[2]+"-"+cfPicks[3]+"-"+cfPicks[4]);
+			$('#powerBall').val(pbPicks[0]+"-"+pbPicks[1]+"-"+
+			   pbPicks[2]+"-"+pbPicks[3]+"-"+pbPicks[4]+"  ("+val+")");
+		  });
+ });
+</script>
+<body style="background-color:lightGreen;">
+
+</head>
+
+<body>
+<p><a href="lotteryhomepage.html">Home</a></p>
+<div data-role="page"  data-theme="b">
+	<div data-role="header">
+		<h1>Lucky Lottery by Kim</h1>
+
+	</div>
+ <div data-role="content">
+   <p align="center">This App will generate you PowerBall or CashFive Picks for you!</p>
+   <form action="mobile2/lotto/GET" name="getTheNumbers" id="getTheNumbers">
+   <div data-role="fieldcontain">
+	  <label for="cashFive">Cash Five</label>
+     <input maxlength="18" size="18" id="cashFive" name="cashFive" value="07-03-08-23-19" />
+   </div>
+   <div data-role="fieldcontain">
+	 <label for="powerBall">Power Ball</label>
+     <input id="powerBall" maxlength="20" size="20" name="powerBall" value="02-12-11-03-27 (12)" />
+   </div>
+  <div data-role="fieldcontain">
+  <input type="button" name="button" id="button" value="Click here to randomly select numbers" text color="white">
+  </form>
+  </div>
+ </div>
+ <div data-role="footer">
+	<h4>Daily and Mega Million selector</h4>
+
+ </div>
+</div>
+</body>
+</html>
